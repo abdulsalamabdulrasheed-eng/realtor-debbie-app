@@ -1,12 +1,22 @@
 "use client";
 import { useMemo, useState } from "react";
 import { Plot } from "@/lib/types";
-const fmt = (n: number) => "₦" + n.toLocaleString("en-NG");
+
+const fmt = (n: number | string | null | undefined) => {
+  if (n === null || n === undefined || n === "") return "—";
+  const num = typeof n === "string" ? Number(n) : n;
+  if (!Number.isFinite(num)) return "—";
+  return "₦" + num.toLocaleString("en-NG");
+};
 
 export default function PaymentCalculator({ plots }: { plots: Plot[] }) {
-  const [size, setSize] = useState<number>(plots[0]?.size_sqm ?? 0);
+  const [size, setSize] = useState<number>(Number(plots[0]?.size_sqm) || 0);
   const [plan, setPlan] = useState<"outright" | "3m" | "6m">("outright");
-  const selected = useMemo(() => plots.find((p) => p.size_sqm === size), [plots, size]);
+
+  const selected = useMemo(
+    () => plots.find((p) => Number(p.size_sqm) === size),
+    [plots, size]
+  );
 
   const display = useMemo(() => {
     if (!selected) return "";
@@ -24,7 +34,9 @@ export default function PaymentCalculator({ plots }: { plots: Plot[] }) {
         <div>
           <label className="eyebrow block mb-2.5">Plot Size</label>
           <select value={size} onChange={(e) => setSize(Number(e.target.value))} className="input-premium">
-            {plots.map((p) => <option key={p.id} value={p.size_sqm}>{p.size_sqm} sqm</option>)}
+            {plots.map((p) => (
+              <option key={p.id} value={Number(p.size_sqm)}>{p.size_sqm} sqm</option>
+            ))}
           </select>
         </div>
         <div>

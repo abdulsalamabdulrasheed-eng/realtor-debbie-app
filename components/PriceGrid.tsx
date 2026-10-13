@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { Plot } from "@/lib/types";
 
-const fmt = (n: number | null) => (n ? "₦" + n.toLocaleString("en-NG") : "—");
+// Robust number formatter — Postgres bigint arrives as string
+const fmt = (n: number | string | null | undefined) => {
+  if (n === null || n === undefined || n === "") return "—";
+  const num = typeof n === "string" ? Number(n) : n;
+  if (!Number.isFinite(num)) return "—";
+  return "₦" + num.toLocaleString("en-NG");
+};
 
-function StatusBadge({ left }: { left: number }) {
-  if (left === 0)
+function StatusBadge({ left }: { left: number | string }) {
+  const n = typeof left === "string" ? Number(left) : left;
+  if (n === 0)
     return <span className="text-[10px] tracking-widest uppercase font-bold bg-red-50 text-red-600 px-3 py-1 rounded-full border border-red-100">Sold Out</span>;
-  if (left <= 4)
-    return <span className="text-[10px] tracking-widest uppercase font-bold bg-amber-50 text-amber-700 px-3 py-1 rounded-full border border-amber-100">{left} Left</span>;
-  return <span className="text-[10px] tracking-widest uppercase font-bold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-100">{left} Available</span>;
+  if (n <= 4)
+    return <span className="text-[10px] tracking-widest uppercase font-bold bg-amber-50 text-amber-700 px-3 py-1 rounded-full border border-amber-100">{n} Left</span>;
+  return <span className="text-[10px] tracking-widest uppercase font-bold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-100">{n} Available</span>;
 }
 
 export default function PriceGrid({ plots }: { plots: Plot[] }) {
@@ -35,13 +42,17 @@ export default function PriceGrid({ plots }: { plots: Plot[] }) {
               {p.plan_3m_monthly && (
                 <div className="flex justify-between text-sm">
                   <span className="text-muted">3 months</span>
-                  <span className="text-ink font-medium">{fmt(p.plan_3m_monthly)} <span className="text-muted text-xs">× 3</span></span>
+                  <span className="text-ink font-medium">
+                    {fmt(p.plan_3m_monthly)} <span className="text-muted text-xs">× 3</span>
+                  </span>
                 </div>
               )}
               {p.plan_6m_monthly && (
                 <div className="flex justify-between text-sm">
                   <span className="text-muted">6 months</span>
-                  <span className="text-ink font-medium">{fmt(p.plan_6m_monthly)} <span className="text-muted text-xs">× 6</span></span>
+                  <span className="text-ink font-medium">
+                    {fmt(p.plan_6m_monthly)} <span className="text-muted text-xs">× 6</span>
+                  </span>
                 </div>
               )}
             </div>

@@ -1,0 +1,9 @@
+node_modules
+.next
+.env
+.env.local
+.env.local.bak
+.env.local.example.bak
+.DS_Store
+*.log
+*.sh

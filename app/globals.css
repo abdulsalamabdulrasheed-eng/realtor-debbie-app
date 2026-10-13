@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --midnight: #0B1E3F;
+  --midnight-2: #142a55;
+  --midnight-3: #1e3a70;
+  --slate: #1E293B;
+  --amber: #D4A24C;
+  --amber-light: #E6BD6C;
+  --amber-dark: #A8802F;
+  --mist: #EEF2F8;
+  --mist-2: #E4EAF3;
+  --ink: #0F172A;
+  --muted: #64748B;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #EEF2F8;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(30, 58, 112, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(212, 162, 76, 0.07) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(11, 30, 63, 0.06) 0px, transparent 50%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-300;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--midnight), var(--midnight-3));
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(11, 30, 63, 0.25);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--midnight-2), var(--midnight));
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(11, 30, 63, 0.35);
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+  color: var(--midnight);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(212, 162, 76, 0.35);
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, var(--amber-light), var(--amber));
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(212, 162, 76, 0.5);
+}
+.btn-outline {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(11, 30, 63, 0.15);
+  color: var(--midnight);
+}
+.btn-outline:hover {
+  border-color: var(--amber);
+  background: rgba(255,255,255,0.95);
+  color: var(--midnight);
+}
+.btn-white-outline {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: #fff;
+}
+.btn-white-outline:hover {
+  background: #fff;
+  color: var(--midnight);
+  border-color: #fff;
+}
+
+/* ---------- CARDS ---------- */
+.card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.9);
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px rgba(11, 30, 63, 0.06), 0 1px 2px rgba(11, 30, 63, 0.04);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  box-shadow: 0 20px 48px rgba(11, 30, 63, 0.12), 0 4px 12px rgba(11, 30, 63, 0.06);
+  transform: translateY(-2px);
+}
+.card-solid {
+  background: #fff;
+  border: 1px solid rgba(11, 30, 63, 0.06);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px rgba(11, 30, 63, 0.05);
+}
+
+/* ---------- SECTION ---------- */
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 700;
+}
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  opacity: 0.5;
+}
+
+/* ---------- FORM INPUTS ---------- */
+input, select, textarea {
+  font-family: 'Inter', sans-serif;
+}
+.input-premium {
+  @apply w-full bg-white px-5 py-3.5 text-sm rounded-xl;
+  border: 1.5px solid rgba(11, 30, 63, 0.1);
+  transition: all 0.2s;
+  color: var(--ink);
+}
+.input-premium:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 4px rgba(212, 162, 76, 0.15);
+  background: #fff;
+}
+.input-premium::placeholder { color: #94A3B8; }
+
+select.input-premium {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%230B1E3F' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  padding-right: 3rem;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.fade-up { animation: fadeUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.fade-in { animation: fadeIn 0.5s ease-out both; }
+.slide-in { animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+/* ---------- HERO ---------- */
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(11, 30, 63, 0.4) 0%, rgba(11, 30, 63, 0.85) 100%);
+}
+
+/* ---------- NAV ---------- */
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 1.5px;
+  background: var(--amber);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* ---------- STEPPER ---------- */
+.stepper-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.step-dot {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.3s;
+  border: 2px solid rgba(11, 30, 63, 0.12);
+  background: rgba(255,255,255,0.6);
+  color: var(--muted);
+}
+.step-dot.active {
+  background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+  border-color: var(--amber);
+  color: var(--midnight);
+  box-shadow: 0 4px 12px rgba(212, 162, 76, 0.35);
+}
+.step-dot.done {
+  background: var(--midnight);
+  border-color: var(--midnight);
+  color: #fff;
+}
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(11, 30, 63, 0.1);
+  border-radius: 2px;
+  max-width: 60px;
+}
+.step-line.done { background: var(--amber); }
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 640px) {
+  .btn { padding-left: 1.25rem; padding-right: 1.25rem; }
+  input, select, textarea { font-size: 16px !important; }
+}
